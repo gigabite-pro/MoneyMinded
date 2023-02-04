@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/map-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>MoneyMinded | Dashboard</title>
+</head>
+<body>
+    <div class="load" id="loader">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+    <div class="dashboard-main">
+        <div class="header">
+            <h1>
+                MoneyMinded
+            </h1>
+            <div class="welcome">
+                Welcome, Jai Madhukar 
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class="menu">
+                Courses
+            </div>
+            <div class="menu">
+                Market
+            </div>
+            <div class="menu">
+                Leaderboard
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+        });
+    </script>
+</body>
+</html>
