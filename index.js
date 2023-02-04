@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require('mongoose');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const Users = require('./models/Users');
 require('dotenv').config();
 
 app.use(express.static(__dirname + '/public'));
@@ -31,7 +32,15 @@ mongoose.connect(process.env.MONGO_URI,{
 .catch(err => console.log(err))
 
 //routes
-app.get('/', (req, res) => { res.render('index'); })
+app.get('/', (req, res) => { res.render('index'); });
+app.get('/leaderboard', (req,res) => {
+    Users.find({}).sort({coins: 'desc'}).limit(50)
+    .then(users => {
+        console.log(users)
+        res.render('leaderboard', {users: users})
+    })
+    .catch(err => console.log(err))
+})
 app.use('/auth', require('./routes/auth'));
 app.use('/dashboard', require('./routes/dashboard'));
 app.use('/courses', require('./routes/courses'));
