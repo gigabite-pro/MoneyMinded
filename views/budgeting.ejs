@@ -1,0 +1,138 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="assets/map-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>MoneyMinded | Courses | Budgeting</title>
+</head>
+<body>
+    <div class="load" id="loader">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+    <div class="dashboard-main">
+        <div class="header">
+            <h1>
+                Budgeting
+            </h1>
+        </div>
+        <div class="dashboard">
+            <input type="hidden" id="user_id" value="<%= user._id %>">
+            <div class="progress">
+                <div class="progress-value"></div>
+            </div>
+            <p class="course-header">Zero Base Budgeting</p>
+            <div class="options" style="display: none;">
+                <div class="row">
+                    <div class="option" id="1">
+                        <img src="https://cdn.discordapp.com/attachments/751511569971675216/1071431311929114624/expenses.png">
+                        <p>reducing expenditure</p>
+                    </div>
+                    <div class="option" id="2">
+                        <img src="https://cdn.discordapp.com/attachments/751511569971675216/1071431312273068052/revenue.png">
+                        <p>increasing revenue</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="option" id="3">
+                        <img src="https://cdn.discordapp.com/attachments/751511569971675216/1071431312491163778/piggy-bank.png">
+                        <p>increase savings</p>
+                    </div>
+                    <div class="option" id="4">
+                        <img src="https://cdn.discordapp.com/attachments/751511569971675216/1071431312776364112/united.png">
+                        <p>collaboration</p>
+                    </div>
+                </div>  
+            </div>
+            <img src="" class="main-img" style="display: none;">
+            <img src="https://cdn.discordapp.com/attachments/751511569971675216/1071427301469864056/Screenshot_2023-02-04_at_7.19.25_PM.jpg" class="course-img">
+            <p class="course-desc">
+                Zero-based budgeting (ZBB) is a budgeting technique in which all expenses must be justified for a new period or year starting from zero, versus starting with the previous budget and adjusting it as needed.
+                <br><br>
+                ZBB is a highly effective business-planning tool to help a company identify and eliminate unnecessary costs, keep control of your spending, and focus on high-profit initiatives.
+            </p>
+            <div class="continue">
+                Continue
+            </div>
+            <div class="home" style="display: none;">
+                Go Home
+            </div>
+        </div>
+    </div>
+    <script>
+        completed = false
+        root = document.documentElement
+        root.style.setProperty('--my-end-width', '25%');
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('continue')) {
+                if (completed) {
+                    document.getElementsByClassName('course-header')[0].innerHTML = "Congratulations!";
+                    document.getElementsByClassName('course-header')[0].style.textAlign = "center";
+                    document.getElementsByClassName('dashboard')[0].style.marginTop = "-10vh";
+                    document.getElementsByClassName('main-img')[0].src = "/assets/trophy.svg"
+                    document.getElementsByClassName('main-img')[0].style.display = "block";
+                    document.getElementsByClassName('course-desc')[0].innerHTML = "You earned 1000 MM coins for completing the course!";
+                    document.getElementsByClassName('course-desc')[0].style.display = "block";
+                    document.getElementsByClassName('course-desc')[0].style.fontSize = "6vw";
+                    document.getElementsByClassName('course-desc')[0].style.textAlign = "center";
+                    document.getElementsByClassName('options')[0].style.display = "none";
+                    document.getElementsByClassName('continue')[0].style.display = "none";
+                    document.getElementsByClassName('home')[0].style.display = "flex";
+                } else {
+                    root.style.setProperty('--my-end-width', '50%');
+                    document.getElementsByClassName('course-header')[0].innerHTML = "What does a zero budgeting system focus on?";
+                    document.getElementsByClassName('course-img')[0].style.display = "none";
+                    document.getElementsByClassName('course-desc')[0].style.display = "none";
+                    document.getElementsByClassName('options')[0].style.display = "block";
+                    document.getElementsByClassName('continue')[0].style.display = "none";
+                }
+            } else if (e.target.classList.contains('option')) {
+                if (e.target.id == "4") {
+                    document.getElementById('4').style.backgroundColor = "#51C72A";
+                    document.getElementById('4').style.border = "2px solid #51C72A";
+                    root.style.setProperty('--my-end-width', '100%');
+                    alert("Correct answer! You have completed the course.");
+                    document.getElementsByClassName('continue')[0].style.display = "flex";
+                    completed = true;
+                } else {
+                    document.getElementById(e.target.id).style.backgroundColor = "#e63946";
+                    document.getElementById(e.target.id).style.border = "2px solid #e63946";
+                    alert("Incorrect answer! Try again.");
+                }
+            } else if (e.target.classList.contains('home')) {
+                fetch("/courses/coin", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        id: document.getElementById('user_id').value,
+                        coins: 1000
+                    })
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = "/dashboard";
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+            }
+        })
+    </script>
+</body>
+</html>

@@ -31,11 +31,11 @@ mongoose.connect(process.env.MONGO_URI,{
 .catch(err => console.log(err))
 
 //routes
+app.get('/', (req, res) => { res.render('index'); })
 app.use('/auth', require('./routes/auth'));
-
-app.get('/', (req, res)=>{
-    res.render('courses');
-})
+app.use('/dashboard', require('./routes/dashboard'));
+app.use('/courses', require('./routes/courses'));
+app.use('/market', require('./routes/market'));
 
 const PORT = process.env.PORT || 3000; // || = OR, && = AND
 

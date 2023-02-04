@@ -40,6 +40,12 @@
             loader.style.opacity = "0";
             loader.style.visibility = "hidden";
         });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('menu')) {
+                window.location.href = `/courses/${e.target.innerText.toLowerCase()}`
+            }
+        })
     </script>
 </body>
 </html>

@@ -1,3 +1,7 @@
+html {
+    overflow-x: hidden;
+    width: 96%;
+}
 body{
     padding: 0;
     margin: 0;
@@ -192,4 +196,129 @@ body{
 .courses-heading{
     font-size: 9vw;
     font-weight: 600;
+}
+
+.progress {
+    background: rgba(255,255,255,0.1);
+    justify-content: flex-start;
+    border-radius: 100px;
+    align-items: center;
+    position: relative;
+    padding: 0 5px;
+    display: flex;
+    height: 30px;
+    width: 85%;
+    margin-top: -10vw;
+    margin-bottom: 5vw;
+}
+
+.progress-value {
+    animation: load 3s normal forwards;
+    border-radius: 100px;
+    background: #a8dadc;
+    height: 20px;
+    width: 0;
+}
+
+:root {
+    --my-start-width: 0;
+    --my-end-width: 100%;
+}
+
+@keyframes load {
+    0% { width: var(--my-start-width); }
+    100% { width: var(--my-end-width); }
+}
+
+.dashboard .course-header {
+    text-align: left !important;
+    font-size: 7vw;
+    font-weight: 400;
+}
+
+.course-img {
+    width: 85%;
+    height: 25%;
+    margin-bottom: 2vw;
+}
+
+.dashboard p {
+    width: 85%;
+    text-align: left;
+    font-size: 4.5vw;
+    font-weight: 400;
+    margin-right: 2vw;
+}
+
+.continue {
+    width: 82%;
+    height: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6vw;
+    border-radius: 6px;
+    background-color: #e63946;
+    color: #f1faee;
+    margin-top: 10vw;
+    padding: 5vw 3vw;
+    transition: all 0.3s ease;
+}
+
+.home {
+    width: 82%;
+    height: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6vw;
+    border-radius: 6px;
+    background-color: #e63946;
+    color: #f1faee;
+    margin-top: 10vw;
+    padding: 5vw 3vw;
+    transition: all 0.3s ease;
+}
+
+.options {
+    width: 90%;
+    margin-top: -2vw;
+    margin-bottom: 6vw;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.option {
+    width: 40%;
+    height: 15vh;
+    font-size: 6vw;
+    border-radius: 6px;
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #f1faee;
+    margin-top: 6vw;
+    padding: 6vw 3vw;
+    transition: all 0.3s ease;
+}
+
+.option img {
+    width: 15vw;
+    height: 15vw;
+    margin-right: 2vw;
+}
+
+.option p {
+    font-size: 5vw;
+    font-weight: 400;
+}
+
+.main-img {
+    width: 85%;
+    height: 40%;
+    margin-bottom: 2vw;
 }

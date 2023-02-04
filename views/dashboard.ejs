@@ -22,7 +22,7 @@
                 MoneyMinded
             </h1>
             <div class="welcome">
-                Welcome, Jai Madhukar 
+                Welcome, <%= user.name %>
             </div>
         </div>
         <div class="dashboard">
@@ -43,6 +43,12 @@
             loader.style.opacity = "0";
             loader.style.visibility = "hidden";
         });
+
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('menu')) {
+                window.location.href = `/${e.target.innerText.toLowerCase()}`
+            }
+        })
     </script>
 </body>
 </html>
