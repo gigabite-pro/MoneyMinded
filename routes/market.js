@@ -41,7 +41,7 @@ router.get('/sell', async (req, res) => {
   const currentPrice = req.query.currentPrice
   const user = await getUser(id)
   user.investments = user.investments.filter(investment => investment.symbol !== symbol)
-  user.coins += (currentPrice - purchasePrice)
+  user.coins += purchasePrice + (currentPrice - purchasePrice)
   user.save()
   res.json({ success: true });
 })
