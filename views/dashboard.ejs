@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -18,22 +19,69 @@
       </div>
     <div class="dashboard-main">
         <div class="header">
-            <h1>
-                MoneyMinded
-            </h1>
+            <div class="heading">
+                <div class="header-logo">
+                </div>
+                <h1>
+                    MoneyMinded
+                </h1>
+            </div>
+        </div>
+        <div class="outer-div">
+            <div class="bg"></div>
             <div class="welcome">
                 Welcome, <%= user.name %>
             </div>
-        </div>
-        <div class="dashboard">
-            <div class="menu">
-                Courses
-            </div>
-            <div class="menu">
-                Market
-            </div>
-            <div class="menu">
-                Leaderboard
+            <div class="underline"></div>
+            <div class="dashboard">
+                <div class="menu">
+                    <div class="menu-bg"></div>
+                    <div class="menu-heading">
+                        <h1>
+                            Courses
+                        </h1>
+                        <span>
+                            Learn finance in engaging way!
+                        </span>
+                    </div>
+                    <div>
+                        <button class="small-btn">
+                            Go
+                        </button>
+                    </div>
+                </div>
+                <div class="menu market-menu">
+                    <div class="menu-bg market-menu-bg"></div>
+                    <div class="menu-heading">
+                        <h1>
+                            Market
+                        </h1>
+                        <span>
+                            Explore where to invest!
+                        </span>
+                    </div>
+                    <div>
+                        <button class="small-btn">
+                            Go
+                        </button>
+                    </div>
+                </div>
+                <div class="menu">
+                    <div class="menu-bg"></div>
+                    <div class="menu-heading">
+                        <h1>
+                            Leaderboard
+                        </h1>
+                        <span>
+                            Look where you stand!
+                        </span>
+                    </div>
+                    <div>
+                        <button class="small-btn">
+                            Go
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -45,8 +93,9 @@
         });
 
         window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('menu')) {
-                window.location.href = `/${e.target.innerText.toLowerCase()}`
+            if (e.target.classList.contains('small-btn')) {
+                const target = e.target.parentElement.parentElement.children[1].children[0].innerText.toLowerCase()
+                window.location.href = `/${target}`
             }
         })
     </script>

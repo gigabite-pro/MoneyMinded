@@ -20,7 +20,7 @@ router.get('/', async (req, res) => {
     stock.pChange = ((stock.lastPrice - stock.purchasePrice) / stock.purchasePrice) * 100
     stock.pChange = Math.round((stock.pChange + Number.EPSILON) * 100) / 100
   });
-  res.json({ success: true, data: stocks });
+  res.render('market', { stocks, coins: user.coins});
 })
 
 router.get('/buy', async (req, res) => {
@@ -55,6 +55,7 @@ const getEquityDetails = (symbol) => {
         lastPrice: details.priceInfo.lastPrice,
         pChange: details.priceInfo.pChange,
         url: `https://google.com/search?q=${details.info.symbol}+stock`,
+        img: `/assets/stocks-img/${details.info.symbol.toLowerCase()}.png`,
         invested: false,
         purchasePrice: 0,
       }

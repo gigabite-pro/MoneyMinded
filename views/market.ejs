@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="assets/map-icon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>MoneyMinded | Market</title>
+</head>
+<body>
+    <div class="load" id="loader">
+        <div class="one"></div>
+        <div class="two"></div>
+        <div class="three"></div>
+      </div>
+
+    <div class="dashboard-main">
+        <div class="header">
+            <div class="heading">
+                <h1 style="padding-top: 2vw;">
+                    Market
+                </h1>
+            </div>
+        </div>
+        <div class="outer-div">
+            <div class="bg"></div>
+            <div class="dashboard">
+                <div class="balance">
+                    Balance: <%= coins %> MM
+                </div>
+                <div class="market">
+                    <div class="layout">
+                        <div class="stocks-heading">
+                            Your Investment
+                        </div>
+                        <div class="underline stocks-underline"></div>
+                        <div class="invested-stocks">
+                            <% stocks.forEach(stock => { %>
+                                <% if (stock.invested) { %>
+                                    <% if (stock.pChange < 0) { %>
+                                        <div class="invested-stock stock-red">
+                                            <div class="invest-header header-red">
+                                                <div class="invest-name">
+                                                    <h3><%= stock.name %></h3>
+                                                </div>
+                                                <div class="invest-img" style="background-image: url('<%= stock.img %>')">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="details">
+                                                <p>
+                                                    <span>Purchased Price:</span><br> <%= stock.purchasePrice %> MM  <br><br>
+                                                    <span>Current Price:</span><br> <%= stock.lastPrice %> MM <br><br>
+                                                    <span>Value:</span><br> <%= stock.pChange %>%
+                                                </p>
+                                            </div>
+                                            <div class="operation">
+                                                <button class="red-btn" onclick="handleSell('<%= stock.symbol %>', '<%= stock.purchasePrice %>', '<%= stock.lastPrice %>')">
+                                                    SELL
+                                                </button>
+                                            </div>
+                                        </div>
+                                    <% }else{ %>
+                                        <div class="invested-stock stock-green">
+                                            <div class="invest-header header-green">
+                                                <div class="invest-name">
+                                                    <h3><%= stock.name %></h3>
+                                                </div>
+                                                <div class="invest-img" style="background-image: url('<%= stock.img %>')">
+                                                    
+                                                </div>
+                                            </div>
+                                            <div class="details">
+                                                <p>
+                                                    <span>Purchased Price:</span><br> <%= stock.purchasePrice %> MM <br><br>
+                                                    <span>Current Price:</span><br> <%= stock.lastPrice %> MM <br><br>
+                                                    <span>Value:</span><br> <%= stock.pChange %>%
+                                                </p>
+                                            </div>
+                                            <div class="operation">
+                                                <button class="green-btn" onclick="handleSell('<%= stock.symbol %>', '<%= stock.purchasePrice %>', '<%= stock.lastPrice %>')">
+                                                    SELL
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <% } %>
+                                <% } %>
+                            <% }) %>
+                        </div>
+                    </div>
+                    <div class="layout">
+                        <div class="stocks-heading" style="margin-top: 8vw;">
+                            Shares Available
+                        </div>
+                        <div class="underline stocks-underline"></div>
+                        <div class="available-stocks">
+                            <% stocks.forEach(stock => { %>
+                                <% if (!stock.invested) { %>
+                                    <div class="available-stock">
+                                        <div class="available-header">
+                                            <div class="invest-name">
+                                                <h3><%= stock.name %></h3>
+                                            </div>
+                                            <div class="invest-img avail-img" style="background-image: url('<%= stock.img %>')">
+                                            </div>
+                                        </div>
+                                        <div class="details">
+                                            <p>
+                                                <span>Current Price:</span><br> <%= stock.lastPrice %> MM
+                                            </p>
+                                        </div>
+                                        <div class="operation">
+                                            <button class="blue-btn" onclick="handleBuy('<%= stock.symbol %>', '<%= stock.lastPrice %>')">
+                                                BUY
+                                            </button>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% }) %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            loader.style.opacity = "0";
+            loader.style.visibility = "hidden";
+        });
+
+        function handleBuy(symbol, price) {
+            fetch(`/market/buy?symbol=${symbol}&price=${price}`, {method: "GET"})
+            .then(res => {
+                res = res.json();
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+
+        function handleSell(symbol, purchasePrice, currentPrice){
+            fetch(`/market/sell?symbol=${symbol}&purchasePrice=${purchasePrice}&currentPrice=${currentPrice}`, {method: "GET"})
+            .then(res => {
+                res = res.json();
+                window.location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+
+    </script>
+</body>
+</html>
